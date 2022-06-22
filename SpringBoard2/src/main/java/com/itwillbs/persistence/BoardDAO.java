@@ -16,9 +16,13 @@ public interface BoardDAO {
 	public BoardVO content(Integer bno);
 	
 	//글 수정
-	public void modify(BoardVO vo);
+	public void updateBoard(BoardVO vo);
 	
+	//글 삭제
+	public void removeBoard(Integer bno);
 	
+	//조회수 증가
+	public void updateBoardCnt(int bno);
 	
 
 }

@@ -11,7 +11,11 @@ public interface BoardService {
 	public List<BoardVO> getBoardListAll();
 
 	public BoardVO getBoardContent(int bno);
+	
+	public void updateBoard(BoardVO vo);
 
-	public void modifyBoard(BoardVO vo);
+	public void deleteBoard(Integer bno);
+
+	public void updateBoardCnt(int bno);
 
 }

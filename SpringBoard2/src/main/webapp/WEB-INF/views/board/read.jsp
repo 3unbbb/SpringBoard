@@ -26,6 +26,11 @@
 							    name ="bno"  readonly="readonly">
 						</div>
 						<div class="form-group">
+							<label for="exampleInputEmail1">조회수</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" value="${vo.viewcnt }"
+							    name ="viewcnt"  readonly="readonly">
+						</div>
+						<div class="form-group">
 							<label for="exampleInputEmail1">글 제목</label>
 							<input type="text" class="form-control" id="exampleInputEmail1" value="${vo.title }"
 							    name ="title" readonly="readonly">
@@ -90,10 +95,20 @@
 				//get방식
 				//formObj.attr("method", "get");
 				
-				$(formObj).submit();
+				formObj.submit();
 				
 			});
 			
+			//삭제버튼 클릭
+			// /board/remove - post 방식
+			$('.btn-danger').click(function(){
+				
+				
+				formObj.attr("action","/board/remove");
+				formObj.attr("method","post");
+				
+				formObj.submit();
+			});
 			
 			
 			

@@ -57,13 +57,32 @@ public class BoardDAOImpl implements BoardDAO{
 
 
 	@Override
-	public void modify(BoardVO vo) {
+	public void updateBoard(BoardVO vo) {
 		// TODO Auto-generated method stub
 		
 		log.info("boardModify 호출");
+		log.info(vo+"");
+		sqlSession.update(NAMESPACE+".updateBoard", vo);
 		
-		sqlSession.update(NAMESPACE+".modifyBoard", vo);
+	}
+
+
+	@Override
+	public void removeBoard(Integer bno) {
+		// TODO Auto-generated method stub
 		
+		sqlSession.delete(NAMESPACE+".deleteBoard", bno);
+		
+		
+		
+		
+	}
+
+
+	@Override
+	public void updateBoardCnt(int bno) {
+		// TODO Auto-generated method stub
+		sqlSession.update(NAMESPACE+".readCnt", bno);
 	}
 	
 

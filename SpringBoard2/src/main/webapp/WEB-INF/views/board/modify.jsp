@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../include/header.jsp" %>
-
 <!-- Main content -->
 <section class="content">
 	<div class="row">

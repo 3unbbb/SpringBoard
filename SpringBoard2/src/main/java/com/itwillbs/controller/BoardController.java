@@ -83,6 +83,9 @@ public class BoardController {
 		log.info("readGET() 호출");
 		log.info("bno : "+bno);
 		
+		//글 조회수 1 증가
+		service.updateBoardCnt(bno);
+		
 		// 글 번호를 가지고 서비스 - 글 정보 가져오기
 		BoardVO vo = service.getBoardContent(bno);
 		
@@ -102,18 +105,41 @@ public class BoardController {
 		model.addAttribute("vo", vo);
 	}
 	
-	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modifyPOST(BoardVO vo) {
+	public String modifyPOST(BoardVO vo, RedirectAttributes rttr) {
 		
 		log.info(" modifyPOST 호출");
 		log.info(vo+"");
 		
-		service.modifyBoard(vo);
+		service.updateBoard(vo);
 		log.info("글쓰기 완료");
+		
+		rttr.addFlashAttribute("result","MODOK");
+		
 		
 		return "redirect:/board/listAll";
 	}
+	
+	//http://localhost:8088/board/remove
+	@RequestMapping(value="/remove", method=RequestMethod.POST)
+	public String removePOST(@ModelAttribute("bno") int bno, RedirectAttributes rttr) {
+		log.info("removePOST() 호출");
+		
+		//전달된 정보 저장(bno)
+		log.info("bno : "+bno);
+		
+		
+		//DB에서 삭제
+		service.deleteBoard(bno);
+		
+		
+		//글 삭제완료 메시지 출력
+		
+		rttr.addFlashAttribute("result", "DELOK");
+		
+		return "redirect:/board/listAll";
+	}
+	
 	
 	
 }

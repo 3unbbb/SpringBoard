@@ -7,3 +7,6 @@ DAOImpl에 S 표시 뜸
 resources 밑에 mapper 폴더 & Mapper.xml 만들기
 	Mapper.xml에 쿼리 만들기
 test파일에 실행
+
+
+github 에디터로 수정!

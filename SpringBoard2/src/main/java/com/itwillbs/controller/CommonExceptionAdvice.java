@@ -1,0 +1,54 @@
+package com.itwillbs.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
+
+//@ControllerAdvice : 컨트롤러에서 발생하는 모든 예외를 처리하는 객체
+@ControllerAdvice
+public class CommonExceptionAdvice {
+	
+
+	private static final Logger log = LoggerFactory.getLogger(CommonExceptionAdvice.class);
+	//http://localhost:8088/common
+	//@RequestMapping(value="/common")  => 작동 안함
+	
+	//@ExceptionHandler(Exception.class) : Exception 이라는 클래스를 다루는 동작
+	
+	//예외 중 nullPointerException 을 다루는 동작
+//	@ExceptionHandler(NullPointerException.class)
+//	public String nullEx(Exception e) {
+//		log.info("nullEx() 호출");
+//		log.info(e.getMessage());
+//		
+//		return "";
+//	}
+	
+	
+//	@ExceptionHandler(Exception.class)
+//	public String common(Exception e, Model model) {
+//		log.info("common()호출");
+//		log.info(e.getMessage());
+//		model.addAttribute("test","Error!!!");
+//		
+//		return "commException";
+//	}
+	
+	@ExceptionHandler(Exception.class)
+	public ModelAndView common(Exception e, Model model) {
+		log.info("common()호출");
+		log.info(e.getMessage());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/commException");
+		mav.addObject("exception", e);
+		
+		return mav;
+	}
+	
+	
+	
+
+}

@@ -34,13 +34,13 @@ public class BoardController {
 	//글쓰기 - GET
 	//http://localhost:8088/board/register
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public void registerGET() {
+	public void registerGET() throws Exception {
 		log.info("registerGET() 호출");
 	}
 	
 	// 글쓰기 - POST
 		@RequestMapping(value = "/register",method = RequestMethod.POST)
-		public String registerPOST(BoardVO vo, RedirectAttributes rttr) {
+		public String registerPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
 			log.info(" registerPOST() 호출 ");
 			// 한글처리 (=> web.xml 필터로 처리) 
 			// 전달된 정보 저장(글쓰기 정보)
@@ -63,7 +63,7 @@ public class BoardController {
 		// http://localhost:8088/board/listAll
 		//글목록
 	@RequestMapping(value="/listAll", method = RequestMethod.GET)
-	public void listAllGET(Model model, @ModelAttribute("result") String result, HttpSession session) {
+	public void listAllGET(Model model, @ModelAttribute("result") String result, HttpSession session) throws Exception {
 		log.info("listAllGET() 호출");
 		
 		//디비에 저장되어 있는 모든 글정보를 가져와서
@@ -83,7 +83,7 @@ public class BoardController {
 	//글 본문보기
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	//public void readGET(@ModelAttribute("bno") int bno) {
-		public void readGET(@RequestParam("bno") int bno, Model model,HttpSession session) {
+		public void readGET(@RequestParam("bno") int bno, Model model,HttpSession session) throws Exception {
 		//@RequestParam							=> request.getParameter("이름");
 		//->문자열, 숫자, 날짜 등 자동 형변환 	-> 무조건 스트링으로 가져옴
 		log.info("readGET() 호출");
@@ -112,7 +112,7 @@ public class BoardController {
 		
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public void modifyGET(@ModelAttribute("bno") int bno, Model model) {
+	public void modifyGET(@ModelAttribute("bno") int bno, Model model) throws Exception {
 		log.info(" modifyGET 호출");
 		
 		BoardVO vo = service.getBoardContent(bno);
@@ -120,7 +120,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modifyPOST(BoardVO vo, RedirectAttributes rttr) {
+	public String modifyPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
 		
 		log.info(" modifyPOST 호출");
 		log.info(vo+"");
@@ -136,7 +136,7 @@ public class BoardController {
 	
 	//http://localhost:8088/board/remove
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
-	public String removePOST(@ModelAttribute("bno") int bno, RedirectAttributes rttr) {
+	public String removePOST(@ModelAttribute("bno") int bno, RedirectAttributes rttr) throws Exception {
 		log.info("removePOST() 호출");
 		
 		//전달된 정보 저장(bno)
@@ -145,6 +145,7 @@ public class BoardController {
 		
 		//DB에서 삭제
 		service.deleteBoard(bno);
+		//service.deleteB(null);
 		
 		
 		//글 삭제완료 메시지 출력

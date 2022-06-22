@@ -1,8 +1,12 @@
 package com.itwillbs.controller;
 
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
+
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,14 +63,16 @@ public class BoardController {
 		// http://localhost:8088/board/listAll
 		//글목록
 	@RequestMapping(value="/listAll", method = RequestMethod.GET)
-	public void listAllGET(Model model, @ModelAttribute("result") String result) {
+	public void listAllGET(Model model, @ModelAttribute("result") String result, HttpSession session) {
 		log.info("listAllGET() 호출");
 		
 		//디비에 저장되어 있는 모든 글정보를 가져와서
 		//=> 서비스 동작
 		List<BoardVO> boardList = service.getBoardListAll();
 		//log.info(boardList+"")
+
 		
+		session.setAttribute("upFlag", "1"); //0-false, 1-true
 		//연결된 뷰 페이지에 출력
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("result", result);
@@ -77,14 +83,22 @@ public class BoardController {
 	//글 본문보기
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	//public void readGET(@ModelAttribute("bno") int bno) {
-		public void readGET(@RequestParam("bno") int bno, Model model) {
+		public void readGET(@RequestParam("bno") int bno, Model model,HttpSession session) {
 		//@RequestParam							=> request.getParameter("이름");
 		//->문자열, 숫자, 날짜 등 자동 형변환 	-> 무조건 스트링으로 가져옴
 		log.info("readGET() 호출");
 		log.info("bno : "+bno);
 		
-		//글 조회수 1 증가
-		service.updateBoardCnt(bno);
+//		session.setAttribute("upFlag", "1"); //0-false, 1-true
+		String upFlag = (String)session.getAttribute("upFlag");
+			
+		if(upFlag.equals("1")){
+			
+			//글 조회수 1 증가
+			service.updateBoardCnt(bno);
+			session.setAttribute("upFlag", "0");
+		}
+		
 		
 		// 글 번호를 가지고 서비스 - 글 정보 가져오기
 		BoardVO vo = service.getBoardContent(bno);

@@ -17,7 +17,8 @@
 				<form action="" role="form">
 					<input type ="hidden" name="bno" value="${vo.bno}">
 				</form>
-
+				
+			<%-- 	${sessionScope.upFlag } --%>
 				
 					<div class="box-body">
 						<div class="form-group">

@@ -14,6 +14,8 @@
 //		$('body').append('${boardList[0].title}');
 //	});
 	
+	
+	
 	var result = '${result}';
 	if(result == "REGOK"){
 		alert('글쓰기 완료!');

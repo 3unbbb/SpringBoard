@@ -1,0 +1,260 @@
+스프링.txt
+=> SpringMVC
+
+Spring (Legacy) : WAS O
+	- 현재까지 가장 많이 사용(실무) => 자료가 많다(구글링 쉽다)
+	- 기존의 프로젝트 이해가 쉬움
+	- 모든 버전의 스프링을 사용 가능
+	- 초반환경설정이 어려움
+	- WAS를 사용하기 때문에 결과 확인을 위해 많은 리소스를 사용해야 함(느리다)
+Spring boot : WAS X
+	- WAS없이 실행 가능(내장 서버가 있음)
+	- 별도의 설정이 필요 없음
+	- 로딩 시간이 매우 짧음
+	- JSP에 해당하는 설정을 별도로 진행해야 함
+	- 기존의 설정과 완전히 다른 방식으로 작동/사용
+	
+
+* NAVEN(빌드도구)/Gradle(빌드도구)
+
+  -NAVEN : xml형식으로 사용
+	<dependency>
+   		 <groupId>mysql</groupId>
+   		 <artifactId>mysql-connector-java</artifactId>
+   		 <version>8.0.28</version>
+	</dependency>
+  	
+  -Gradle
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+  
+  
+*프레임 워크(framework): 어떤 대상을 구성하는 뼈대, 틀
+	=> SW : 기능을 미리 클래스/인터페이스 형태로 만들어서 제공하는 형태
+	=> 모든 팀원이 동일한 구조에서 결과물을 생성 => 개발 시간 단축
+	
+	2000년대 초반 => 엔터프리이즈급 개발의 필요성 => 많은 프레임 워크의 등장
+	- 경량 프레임 워크(서버 중심 개발 -> 클라이언트 중심 개발)
+	- 프로그램 전체 구조를 설계하기 쉬움
+	- 다른 프레임 워크 포용 가능
+	- 다양한 개발도구의 지원
+	
+	Spring 2.5 : 애노테이션을 지원
+	Spring 3.0 : Java클래스를 설정파일로 지원
+	Spring 4.0 : REST방식 지원
+	
+	* 경량 컨테이너
+	* tomcat(서블릿 컨테이너) : 서블릿 생성, 초기화, 실행, 소멸 모두 관리
+	
+	* 스프링 특징
+	1) EJB(enterprise java beans)보다 가볍고, 학습하기 쉬운 경량 프레임 워크
+	2) POJO(Plain Old Java Object)기반의 구성 = 자바 형태로 만들어져 있음
+	3) 제어의 역행(IoC, Inversion Of Control) 기술을 사용 => 애플리케이션의 느슨한 결합(약한 결합)을 제어
+	4) 의존성 주입(DI, Dependency Injection) 기능 지원
+	5) 관점지향 프로그래밍 지원(AOP, Aspect-Oriented Programing)지원 => 자원관리 가능
+	6) 편리한 MVC패턴 구조
+	7) 영속성(DB) 관련 다양한 서비스가 제공
+	
+		* 제어의 역행(IoC, Inversion Of Control) : 메서드/객체의 호출 작업을 개발자가 결정하는 것이 아니라 외부에서 결정되는 것
+			(주로 프레임워크에서 결정)
+
+		* 의존성 주입(DI, Dependency Injection) : 제어의 역행이 발생할 때, 스프링 내부에 있는 객체(빈 Bean)를 관리하는 기법
+			* 의존성 : 객체가 혼자서 처리할 수 없음. 다른 객체를 통해서 도움을 받아야지만 처리 가능
+		=> 의존 관계에 있는 객체를 직접 생성, 제어가 아니라 제어의 역행을 통해서 필요한 객체를 외부에서 결정해서 연결하는 것
+		  1) 생성자를 사용한 주입 		2) set()를 사용한 주입
+	
+
+		* 관점지향 프로그래밍 지원(AOP, Aspect-Oriented Programing) : 개발자가 비지니스 로직만 집중해서 개발하도록 하는 방법
+		'횡단 관심사'를 분리하여 제작하여 개발하는 방법
+	
+	* 스프링 주요 기능
+	Spring Core : 다른 기능과 설정을 분리하기 위한 IoC기능을 제공
+	Spring Context : 스프링의 기본기능, 애플리케이션의 각 기능을 빈에 접근하는 방법 제공
+	Spring DAO : JDBC기능을 편리하게 사용가능
+	Spring ORM : 하이버네이트/마이바티스와 같은 영속성 프레임워크를 제공(DB관련 프레임워크가 따로 있음)
+	Spring AOP : 관점 지향 기능 제공
+	Spring WEB : 웹 애플리케이션 개발에 필요한기능 제공
+	Spring WebMVC : MVC 구현 기능 제공
+	
+	
+	
+	* 강한결합(tightly coupled) : 직접적인 연관관계가 있어서 코드 변경이 어려움
+	* 약한결합(loosely coupled) : 직접적인 연관관계가 없어서 코드 변경이 쉬움
+	
+	
+	<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+        => 해당 xml파일이 beans 형태로 표현된다는 선언
+        
+    <beans>
+		<bean id="아이디"></bean>
+		<bean>
+			<id> 빈 객체의 고유의 이름(외부에서 부를 때) </id>
+			<name> 객체의 별칭 = alias </name>
+			<class> 생성할 클래스(패키지명.클래스명) </class>
+			<property> set()를 사용해서 데이터값 주입하는 속성 </property>
+			<constructor-arg> 생성자를 사용해서 값 주입하는 속성 </constructor-arg>
+		</bean>
+
+	</beans>
+	
+	
+	* AOP : 개발자가 비지니스 로직만 집중해서 개발하도록 하는 방법
+		'횡단 관심사'를 분리하여 제작하여 개발하는 방법
+		=> 메서드 안의 주 기능과 보조기능(횡단관심사)으로 분리 후 선택적으로 사용
+	
+	- aspect : 구현하고자 하는 보조기능(보안, 로그, 트렌젝션)
+	- advice : aspect의 실제 구현 클래스(메서드 호출 기준으로 여러곳 호출 가능)
+	- joinpoint : advice 를 적용하는 지점
+	- pointcut : advice가 적용되는 대상 지점(패키지명/클래스명/메서드명)
+	- target : advice가 적용되는 클래스
+	- weaving : advice를 주기적으로 적용하는 것
+	
+	AOP기능 구현
+  	1) target클래스를 지정한다.
+  	2) advice클래스를 지정
+  	3) 설정파일을 사용해서 pointcut을 지정
+  	4) 설정파일에서 advice + pointcut 결합
+  	5) 스프링 ProxyFacotryBean 클래스를 사용해서 target에 advice를 적용
+  	6) getBean() 사용해서 적용
+  	
+  	*주기능: 계산
+  	*보조기능 : 로그출럭
+  	
+  	
+  	MyBatis(iBatis)
+  		마이바티스는 개발자가 지정한 SQL, 저장프로시저 그리고 몇가지 고급 매핑을 지원하는 퍼시스턴스(영속성) 프레임워크이다.
+  		마이바티스는 JDBC로 처리하는 상당부분의 코드와 파라미터 설정 및 결과 매핑을 대신해준다.
+  		마이바티스는 데이터베이스 레코드에 원시타입과 Map 인터페이스 그리고 자바 POJO 를 설정해서 매핑하기 위해 XML과 애노테이션을 사용할 수 있다.
+  	
+  		=> DB/SQL 관련 동작을 쉽게 처리해주는 프레임워크(=SQL Mapper 라이브러리)
+  		- DB연결, Try-catch-finally 구문, pstmt, rs 구문을 훨씬 간결하게 처리
+  		- SQL 구문 분리해서 운영(XML, 애노테이션, XML+애노테이션)
+  		- spring과 연동이 매우 편함 (MyBatis-spring 라이브러리)
+  		- 동적 sql 구문 사용 가능(코드 제어)
+  	
+  	* MyBatis 사용방식
+  	1) XML만 사용하여 SQL구문을 처리, DAO에서는 XML코드를 찾아서 실행
+  		장점 : SQL쿼리 수정 및 유지보수가 우수
+  		단점 : 개발 분량이 증가, 복잡도 증가
+  	2) 애노테이션 & 인터페이스를 사용한 SQL 구문 사용
+  		장점 : DAO 객체 없이도 개발가능, 생산성 증가
+  		단점 : SQL 애너테이션으로 생성하기 때문에, 수정할때 마다 매번 컴파일 해야함
+  	3) 인터페이스(애노테이션) + XML 모두 활용한 방식
+  		장점 : 간단한 구문은 애노테이션, 복잡한 구문은 XML 코드로 표현
+  		단점 : 개발자의 능력에 따른 형태가 정확하지 않음
+  	
+  	* MyBatis 사용하기(XML)
+  		- 데이터베이스 생성
+  		- 테이블생성 & 설정
+  		- 도메인 객체 설계, 클래스 생성 (MemberVO)
+  		- DAO 인터페이스 생성(MemberDAO)
+  		- 인터페이스 안에 내가 필요한 동작 구현(추상메서드로)
+  		- XML Mapper생성(src/main/resources/mappers/memberMapper.xml)
+  			- Mapper DTD 추가
+  			- Mapper 위치(저장경로) 저장 (외부 호출용) (mappername)
+  		- SQL 구문 작성(memberMapper)
+  		- MyBatis에서 Mapper를 인식하도록 설정(root-context.xml - mapperLocations, sqlSessionTemplate)
+  		- DAO객체 생성(/SpringMVC/src/main/java/com/itwillbs/persistence/MemberDAOImpl.java)
+  			=>memberDAO를 임플리먼츠했음
+  		- 스프링에서 필요한 동작  	
+  	
+  	
+  	* 스프링 웹 프로젝트 구성
+  	- Presentation Layer : UI 담당하는 구성 요소가 들어감(웹/모바일)
+  	- Business Layer(서비스계층) : 고객의 요구사항을 반영하는 계층
+  	- Data Access Layer(영속계층 Persistence Layer) : 데이터처리에 관한 동작
+  	- Data Base 
+  	
+  	
+  																<Mybatis-spring>
+  																	으로 연결
+  	* V -------- C  | ---------- Service -----------|-------DAO---------|-----MyBatis ----------------------| DB
+  	 HTML			|								|					|	설정 /mapper(sql 저장)			|
+  	 CSS			|								|					|	- 디비 연결정보(DataSource)		|
+  	 JS				|								|					|	- SqlSessionFactory				|
+  	 JSP			|								|					|	- SqlSessionTemplate			|
+  	 [Presentation]	  [         Business		  ]	  [					    Data Access				      ]
+  	
+  	
+  	
+  	* SqlSessionFactory 객체 : MyBatis <-> spring 연결할 때 필요한 Connection 생성 및 관리
+  	  => 디비 연결과 SQL 실행할 때 필요한 객체
+  	
+  	CREATE TABLE `tbl_member` (
+  `userid` varchar(50) NOT NULL,
+  `userpw` varchar(45) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `useremail` varchar(500) DEFAULT NULL,
+  `regdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`userid`)
+  	
+  	
+  	* 도메인(domain) : 개발 작업을 할 때 사용되는 중요한 개념(명사)
+  	(회원, 글, 상품, 주문, 배송 ... )
+  	=> 물리적인 환경으로 분리 가능한 단위 => 단위테이블 생성
+  	
+  	
+  	*실행순서
+  	 테스트 getTime()-> DAO 인터페이스 호출 -> DAO클래스 호출(인식)
+  	  ->sqlSession(얠 통해서 selectOne()) -> mapper.xml
+  	   -> SQL 실행 ->DB(MySql) -> mapper.xml
+ 
+ 
+ 	* 테스트에서 테이블에 저장되어 있는 회원의 수를 출력 
+  	select count(*) from tbl_member;
+  	
+  	* 스프링 MVC(모델2 방식)
+  	  => FrontController 패턴
+  		
+  		
+	   Controller   <->Model
+  		   ||
+  	   	  View		
+  [스프링MVC]		
+  요청 	->  FrontController   <->	Controller	<-> Service(Model)	<-> DAO <->MyBatis <-> DB
+  			  ||
+  	   	     View
+  	
+  	* 스프링MVC에서 처리
+  		- URI를 분석해서 적당한 컨트롤러(.bo, .me 등)를 연결
+  		- 컨트롤러에 필요한 메서드 호출
+  		- 컨트롤러에서 발생한 결과 데이터를 뷰 페이지로 전달(Model객체)
+  			= (request.setAttribute 안해도 됨)
+  		- 적절한 뷰 페이지를 연결
+  		- 파라메터를 수집(자동으로 받아줌)
+  		
+  		=> 개발자의 로직의 집중
+  	
+  	* 개발자가 처리
+  		- 특정 URI에 동작하는 컨트롤러 설계
+  		- 서비스객체 생성
+  		- DAO 객체 생성
+  		- 컨트롤러 안에 원하는 동작을 메서드로 설계
+  		- 뷰페이지에서 전달받은 데이터 출력
+  		
+  		
+  	**개발 전 고민사항
+  		- 공통 URI경로/각 기능별 URI를 준비
+  		- 각 URI별 호출 방식 결정(GET/POST)
+  		- 결과 처리, 페이지 이동(리다이렉트, 포워드) 결정
+  		- 예외페이지 처리
+  		
+  		- 정보 조회, 정보 입력 동작 => 무조건 GET방식
+  		- 로직처리, 정보 수정,삭제, 처리=>POST방식
+  		
+  		
+  	
+  	*비즈니스 계층(서비스 계층)
+  	=> 사용자의 요구사항에 맞는 동작을 구현하는 곳
+  	  - 약한 결합을 통한 객체관계 구현(인터페이스-서브클래스)
+  	  - 컨트롤러 <-> DAO 사이에 있는 접착겸 완충제(중간단계)
+  	  - 개발의 분량 증가
+  	  => 고객마다 다른부분을 구분해서 개발 할 수 있다.
+  	     외부 호출에 영속계층이 종속적인 상황을 막아준다.
+  	  
+  	
+  	
+  	
+  	
+  

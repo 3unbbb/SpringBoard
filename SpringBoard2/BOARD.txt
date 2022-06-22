@@ -1,0 +1,80 @@
+
+* DB 관련
+  - 계정, 디비 생성(처음에는 로컬 -> 호스트)
+  - 테이블 설계, 생성(ERD)
+  - 더미데이터 준비 https://www.mockaroo.com/
+
+* Spring MVC
+  - 패키지 구조 설계, 코드 규칙 작성
+  - 개발 역할 분담
+  - 테스트 동작, 기능 구현
+ 
+* 화면 관련
+  - 화면방식 결정
+  - 경로설정(절대경로, 상대경로)
+  
+ * 게시판 동작
+ 동작						URI						처리방식					이동할 페이지
+ 글쓰기(정보입력)			/board/register			GET(정보를 입력받으니까)	글쓰기.jsp(view 연결)
+ 글쓰기(처리)				/board/register			POST						리스트 페이지(컨트롤러)
+ 글 리스트보기				/board/list				GET(정보를 조회하니까)		리스트.jsp(view 연결)
+   <제목 눌렀을 때>
+ 글 본문					/board/read?bno=xx		GET(조회)					본문.jsp(view 연결)
+  -글 수정(조회)			/board/modify?bno=x		GET							수정.jsp(view 연결)
+  -글 수정(처리)			/board/modify 			POST						리스트페이지/본문페이지(컨트롤러)
+  					파라메터 말고 폼태그에 담아갈 거임 = ?bno 없이
+  -글 삭제(뷰X 바로 삭제)	/board/remove			POST  						리스트페이지(컨트롤러)
+  
+  
+  
+  
+  
+  
+  
+  ======================================================
+  1. pom.xml 수정
+    test-junit 버전, java-version, org.springframework-version , 외부라이브러리
+    maven 업데이트, 버전 수정
+  2. root-context 수정
+    <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"> 는 오류나니까 일단 주석처리
+  3. src/test/java > DBConnectTest 생성해서 dataSource, dataSource, sqlSession 작동하는지 확인
+  4. servlet-context 수정(namespace 에서 context 추가)
+  5. HomeController 에서 연결 확인
+  6. Tomcat 서버 설정(add/remove 에서 해당 프로젝트만 남기기)
+  7. /SpringBoard/src/main/webapp/resources 템플릿 복붙
+  8. /SpringBoard/src/main/webapp/WEB-INF/views/include 파일에 resource 앞에${pageContext.request.contextPath } 붙이기
+  9. BoardVO 생성
+  10. mapper 준비
+  11. 주석처리한거 취소하기
+  12. insert 쿼리 생성
+  13. BoardDAO 인터페이스 생성
+  14. BoardDAOImpl 생성(@repository)
+  15. root-context 에 context:componen-scan 생성 => boarddaoimpl 에 s 표시 뜨는지 확인
+  16. BoardDAOTest
+  17. BoardDAOImpl
+  18. BoardDAOTest 다시 테스트
+  19. Service / ServiceImpl 생성
+  20. root-context 에서 context:componen-scan 생성
+  21. BoardServiceTest
+  22. BoardController
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

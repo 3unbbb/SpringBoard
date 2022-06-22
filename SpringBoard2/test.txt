@@ -1,0 +1,9 @@
+Maven 라이브러리 설치, 업데이트, 버전체크
+com.itwillbs.persistence 먼저 생성
+	DAOImpl 생성(DAO implements, repository)
+root-context.xml 수정
+mybatis_config.xml만들기
+DAOImpl에 S 표시 뜸
+resources 밑에 mapper 폴더 & Mapper.xml 만들기
+	Mapper.xml에 쿼리 만들기
+test파일에 실행

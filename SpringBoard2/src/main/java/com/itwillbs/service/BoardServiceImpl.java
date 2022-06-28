@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.domain.Criteria;
 import com.itwillbs.persistence.BoardDAO;
 
 @Service
@@ -58,6 +59,19 @@ public class BoardServiceImpl implements BoardService{
 	public void updateBoardCnt(int bno) {
 		dao.updateBoardCnt(bno);
 		
+	}
+
+	@Override
+	public List<BoardVO> BoardListCri(Criteria cri) {
+		
+		
+		return dao.listPage(cri);
+	}
+
+	@Override
+	public Integer totalCnt() {
+		
+		return dao.getTotalCnt();
 	}
 
 

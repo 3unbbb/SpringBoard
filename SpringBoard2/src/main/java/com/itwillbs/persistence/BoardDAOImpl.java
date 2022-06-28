@@ -1,6 +1,8 @@
 package com.itwillbs.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.domain.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -84,6 +87,68 @@ public class BoardDAOImpl implements BoardDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update(NAMESPACE+".readCnt", bno);
 	}
+
+
+	@Override
+	public List<BoardVO> listPage() {
+		
+		log.info("listPage()호출");
+		
+		return sqlSession.selectList(NAMESPACE+".listPage");
+	}
+
+
+	@Override
+	public List<BoardVO> listPage(int page, int size) {
+		
+		log.info("listCri()호출");
+		Map<String, Integer> param = new HashMap<String, Integer>();
+		
+		if(page <= 0) {
+			page = 1;
+		}
+		
+		if(size <= 0) {
+			size = 10;
+		}
+		
+		page = (page-1) *size;
+		
+		param.put("pageStart", page);
+		param.put("perPageNum", size);
+		
+		
+		return sqlSession.selectList(NAMESPACE+".listCri", param);
+	}
+
+
+	@Override
+	public List<BoardVO> listPage(Criteria cri) {
+		
+		
+		return  sqlSession.selectList(NAMESPACE+".listCri", cri);
+	}
+
+
+	@Override
+	public Integer getTotalCnt() {
+		
+		
+		return sqlSession.selectOne(NAMESPACE+".totalCnt");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

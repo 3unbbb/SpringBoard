@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -8,7 +10,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.domain.Criteria;
 import com.itwillbs.persistence.BoardDAO;
+
+import jdk.internal.org.jline.utils.Log;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -21,7 +26,7 @@ public class BoardDAOTest {
 	@Inject
 	private BoardDAO dao;
 	
-	@Test
+	//@Test
 	public void 글쓰기동작() {
 		BoardVO vo = new BoardVO();
 		vo.setTitle("공지사항입니다.");
@@ -29,6 +34,46 @@ public class BoardDAOTest {
 		vo.setWriter("관리자");
 		
 		dao.create(vo);
+		
+	}
+	
+	//@Test
+	public void 페이징처리_호출() {
+		List<BoardVO> boardList =  dao.listPage();
+		
+		for(BoardVO vo :boardList) {
+			System.out.println(vo.getBno()+" : "+vo.getTitle());
+		}
+
+		
+	}
+	//@Test
+	public void 페이징처리_호출2() {
+		
+
+		List<BoardVO> boardList = dao.listPage(3, 10);
+		
+		for(BoardVO vo : boardList) {
+			System.out.println(vo.getBno()+" : "+vo.getTitle());
+		}
+		
+		
+	}
+	
+	@Test
+	public void 페이징처리_호출3() {
+		
+		Criteria cri = new Criteria();
+		
+		cri.setPage(3);
+		cri.setPerPageNum(5);
+		
+		List<BoardVO> boardList = dao.listPage(cri);
+		
+		for(BoardVO vo : boardList) {
+			System.out.println(vo.getBno()+" : "+vo.getTitle());
+		}
+		
 		
 	}
 	

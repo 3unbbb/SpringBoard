@@ -25,7 +25,29 @@
   					파라메터 말고 폼태그에 담아갈 거임 = ?bno 없이
   -글 삭제(뷰X 바로 삭제)	/board/remove			POST  						리스트페이지(컨트롤러)
   
-  
+ * 하단 페이징 처리
+ 	- 시작페이지 번호(startPage) : 페이지 시작정보, '이전'버튼
+ 	[startPage = (endPage - displayPageNum)+1]
+ 	- 끝 페이지 번호(endPage) : 총 페이지 수, '다음' 버튼
+ 	[endPage = (int)(Math.ceil(cri.getPage()/(double)displayPageNum))*displayPageNum]
+ 	- 전체 데이터 개수(totalCount)
+ 	[int tmpEndPage = (int)(Math.ceil(totalCount)/(double)cri.getPerPageNum()) ]
+ 	[if(endPage > tmpEndPage) endPage = temEndPage ]
+ 	- 이전페이지(prev)
+ 	[prev = (startPage == 1)? false : true]
+ 	- 다음페이지(next)
+ 	[next = endPage * cri.getPerPageNum() >= totalCount? false : true ]
+ 	
+ 	ex)한 번에 10개씩 출력 페이지, 총 글의 개수 126개
+ 	이 때 필요한 페이지의 수 ? 126/10 + 1 > 13개
+ 	
+ 	page-3, size-10
+ 	=> startPage =1 endPage = 10 이때 next버튼은 활성화 되어야 됨 1~3~10 next필요 / prev는 필요없음
+ 	page-10, size-10
+ 	=> startPage = 1 endPage = 10 next버튼은 활성화 되어야 됨 1~10 next필요 / prev는 필요없음
+ 	page-11, size-10
+ 	=> startPage = 11 endPage = 13 next버튼은 활성화 되어야 됨 11~13 prev필요 / next는 필요없음
+ 	
   
   
   

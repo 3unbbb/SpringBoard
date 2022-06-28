@@ -78,7 +78,7 @@
 			$('.btn-success').click(function(){
 				//form태그 밖에 있으니까 onsubmit 말고 click 사용
 				//alert('목록버튼 클릭');
-				location.href='/board/listAll';
+				location.href='/board/listCri';
 			});
 			
 			//폼태그(객체)정보

@@ -3,6 +3,7 @@ package com.itwillbs.service;
 import java.util.List;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.domain.Criteria;
 
 public interface BoardService {
 	
@@ -18,4 +19,8 @@ public interface BoardService {
 
 	public void updateBoardCnt(int bno);
 
+	public List<BoardVO> BoardListCri(Criteria cri);
+	
+	public Integer totalCnt();
+	
 }

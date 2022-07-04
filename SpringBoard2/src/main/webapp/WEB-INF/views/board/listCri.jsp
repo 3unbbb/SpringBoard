@@ -4,7 +4,32 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp"%>
 
-<h1>listAll.jsp</h1>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$('#itwillCNT').click(function(){
+			$.ajax({
+				url : "/count",
+				type : "GET",
+				success : function(data){
+					alert('성공!');
+					
+					$('#itwillTitle').append("글의 개수 : " +data+"개");
+					
+				},
+				error : function(){
+					alert("에러발생!");
+					console.log(data);
+				}
+			});
+		});
+		
+		
+		
+	});
+
+</script>
+<h1 id="itwillTitle">listCri.jsp</h1>
 <script type="text/javascript">
 
 //	alert('${result }');
@@ -31,7 +56,8 @@
 </script>
 <div class="box">
 	<div class="box-header with-border">
-		<h3 class="box-title">Bordered Table</h3>
+		<h3 class="box-title">Bordered Table</h3><br>
+		<input class ="btn btn-info" type="button" value="전체 글 수 조회" id="itwillCNT">
 	</div>
 	<div class="box-body">
 		<table class="table table-bordered">
